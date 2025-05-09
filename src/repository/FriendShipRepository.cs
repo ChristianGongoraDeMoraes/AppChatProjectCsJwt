@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.src.data;
+using api.src.dto;
 using api.src.dto.FriendShipD;
 using api.src.interfaces;
 using api.src.model;
@@ -34,13 +35,29 @@ namespace api.src.repository
             return friend;
         }
 
-        public async Task<List<FriendShip>> GetAllFriends(string userId)
+        public async Task<List<UserDto>> GetAllFriends(string userId)
         {
-            var friendShips = _context.FriendShips.AsQueryable();
-            
-            friendShips = friendShips.Where(x => x.UserId == userId);
+            var friendsId = await _context.FriendShips.AsQueryable()
+                                    .Where(x => x.UserId == userId)
+                                    .Select(x => x.FriendId)
+                                    .ToListAsync();
 
-            return await friendShips.ToListAsync();
+            var friendAsUserList = new List<UserDto>();
+
+            foreach (var fid in friendsId)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == fid);
+
+                friendAsUserList.Add(
+                    new UserDto {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email
+                    }
+                );
+            }
+
+            return friendAsUserList;
         }
     }
 }
