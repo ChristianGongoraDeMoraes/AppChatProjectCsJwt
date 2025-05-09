@@ -8,7 +8,6 @@ namespace api.src.dto.Chat
     public class ChatDto
     {
         public string Message { get; set; } = "";
-        public string SenderId { get; set; } = "";
         public string ReceiverId { get; set; } = "";
     }
 }

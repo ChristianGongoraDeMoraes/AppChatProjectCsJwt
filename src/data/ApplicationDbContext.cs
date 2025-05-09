@@ -18,7 +18,8 @@ namespace api.src.data
         }
 
         public DbSet<Chat> Chats { get; set; }
-
+        public DbSet<FriendShip> FriendShips { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
