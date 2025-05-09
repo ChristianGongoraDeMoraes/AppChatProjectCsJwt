@@ -176,3 +176,4 @@ C:\Users\chris\Desktop\ChatProject\api\obj\Debug\net9.0\refint\api.dll
 C:\Users\chris\Desktop\ChatProject\api\obj\Debug\net9.0\api.pdb
 C:\Users\chris\Desktop\ChatProject\api\obj\Debug\net9.0\api.genruntimeconfig.cache
 C:\Users\chris\Desktop\ChatProject\api\obj\Debug\net9.0\ref\api.dll
+C:\Users\chris\Desktop\ChatProject\api\obj\Debug\net9.0\api.sourcelink.json

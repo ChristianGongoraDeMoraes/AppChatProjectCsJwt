@@ -92,6 +92,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<IFriendShipRepository, FriendShipRepository>();
 
 var app = builder.Build();
 
