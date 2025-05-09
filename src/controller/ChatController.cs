@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using api.src.dto.Chat;
 using api.src.interfaces;
@@ -25,9 +26,10 @@ namespace api.src.controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetChat(string SenderId, string ReceiverId)
+        public async Task<IActionResult> GetChat(string ReceiverId)
         {
-            var chat = await _chatRepository.GetAllByReceiverIdAndSenderId(SenderId, ReceiverId);
+            var senderId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var chat = await _chatRepository.GetAllByReceiverIdAndSenderId(senderId, ReceiverId);
             
             if (chat == null) return NotFound();
 
@@ -36,10 +38,11 @@ namespace api.src.controller
         [HttpPost]
         public async Task<IActionResult> SendChat([FromBody] ChatDto chatDto)
         {
-            var user = _userManager.Users.FirstOrDefault(x => x.Id == chatDto.SenderId);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
             var chatModel = new Chat{
                 Message = chatDto.Message,
-                SenderId = chatDto.SenderId,
+                SenderId = userId,
                 SenderName = user.UserName,
                 ReceiverId = chatDto.ReceiverId,
             };
