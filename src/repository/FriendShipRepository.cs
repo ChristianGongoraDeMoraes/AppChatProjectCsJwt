@@ -33,6 +33,14 @@ namespace api.src.repository
 
             return friend;
         }
-   
+
+        public async Task<List<FriendShip>> GetAllFriends(string userId)
+        {
+            var friendShips = _context.FriendShips.AsQueryable();
+            
+            friendShips = friendShips.Where(x => x.UserId == userId);
+
+            return await friendShips.ToListAsync();
+        }
     }
 }

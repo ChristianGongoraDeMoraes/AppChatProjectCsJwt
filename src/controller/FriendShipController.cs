@@ -27,10 +27,20 @@ namespace api.src.controller
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if(userId != req.UserId) return BadRequest();
 
-            var res =await _friendShipRepository.AddFriend(req);
+            var res = await _friendShipRepository.AddFriend(req);
             if(res == null) return BadRequest();
-            
+
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllFriends()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if(userId == null) return NotFound();
+
+            var res = await _friendShipRepository.GetAllFriends(userId);
+            return Ok(res);
         }
     }
 }

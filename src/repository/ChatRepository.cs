@@ -20,7 +20,8 @@ namespace api.src.repository
         public async Task<List<Chat?>> GetAllByReceiverIdAndSenderId(string SenderId, string ReceiverId)
         {
             var chats = _context.Chats.AsQueryable();
-            chats = chats.Where(c => c.SenderId == SenderId && c.ReceiverId == ReceiverId);
+            chats = chats.Where(c => c.SenderId == SenderId && c.ReceiverId == ReceiverId ||
+                                    c.ReceiverId == SenderId && c.SenderId == ReceiverId);
             chats = chats.OrderBy(c => c.Sended);
             
             if (chats == null) return null;
