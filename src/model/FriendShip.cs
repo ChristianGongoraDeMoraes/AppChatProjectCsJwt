@@ -10,5 +10,6 @@ namespace api.src.model
         public int Id { get; set; }
         public string UserId { get; set; }
         public string FriendId { get; set; }
+        public bool Accepted { get; set; } = false;
     }
 }

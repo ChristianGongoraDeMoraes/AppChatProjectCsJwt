@@ -12,5 +12,7 @@ namespace api.src.interfaces
     {
         Task<FriendShip?> AddFriend(FriendShipDto req);
         Task<List<UserDto>> GetAllFriends(string userId);
+        Task<List<UserDto>> GetAllFriendsRequests(string userId);
+        Task declineFriend(FriendShipDto req);
     }
 }
